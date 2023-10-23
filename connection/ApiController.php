@@ -40,9 +40,9 @@ class portalController extends DBController
         $this->insertDB($query, $params);
     }
 
-    function userLogin($password, $uid)
+    function userLogin($password, $uid, $role)
     {
-        $query = "SELECT * FROM user_login UL LEFT JOIN designation D ON UL.designation = D.id WHERE UL.password = ? AND UL.uid = ?";
+        $query = "SELECT * FROM user_login UL LEFT JOIN designation D ON UL.designation = D.id WHERE UL.password = ? AND UL.uid = ? AND D.role = ?";
 
         $params = array(
             
@@ -52,6 +52,9 @@ class portalController extends DBController
             ),array(
                 "param_type" => "s",
                 "param_value" => $uid
+            ),array(
+                "param_type" => "s",
+                "param_value" => $role
             )
         );
         
@@ -486,6 +489,13 @@ class portalController extends DBController
         return $overallSection;
     }
 
+    function getSubject()
+    {
+        $query = "SELECT * FROM subject_matter"; 
+        $overallSubject = $this->getDBResult($query);
+        return $overallSubject;
+    }
+
     function StudentList()
     {
         $query = "SELECT * FROM user_login UL LEFT JOIN user_information UI ON UL.uid = UI.uid WHERE UL.designation = 3"; 
@@ -577,6 +587,35 @@ class portalController extends DBController
             array(
                 "param_type" => "s",
                 "param_value" => date('Y-m-d')
+            )
+        );
+
+        $this->insertDB($query, $params);
+    }
+
+
+    function addSubject($grade, $subject, $subjectCode, $time)
+    {
+        $query = "INSERT INTO subject_matter (grade, subject, subjcode, time) 
+        VALUES (?, ?, ?, ?)";
+        // $query = "INSERT INTO announcement (title, body, date_created) VALUES (?,?,?)";
+
+        $params = array(
+            array(
+                "param_type" => "i",
+                "param_value" => $grade
+            ),
+            array(
+                "param_type" => "s",
+                "param_value" => $subject
+            ),
+            array(
+                "param_type" => "s",
+                "param_value" => $subjectCode
+            ),
+            array(
+                "param_type" => "s",
+                "param_value" => $time
             )
         );
 
@@ -1168,6 +1207,68 @@ class portalController extends DBController
             array(
                 "param_type" => "s",
                 "param_value" => $email
+            )
+        );
+        
+        $this->updateDB($query, $params);
+    }
+
+
+    function getUserIdFromToken($token)
+    {
+        $query = "SELECT * FROM remember_me_tokens WHERE token = ?"; 
+
+        $params = array(
+            array(
+                "param_type" => "s",
+                "param_value" => $token
+            )
+        );
+
+
+        $tokenVal = $this->getDBResult($query, $params);
+        return $tokenVal;
+    }
+
+    function lostCreatedUpdate($fid, $status)
+    {
+        $query = "UPDATE lostandfound SET status = ? WHERE fid = ?"; 
+
+        $params = array(
+            
+            array(
+                "param_type" => "s",
+                "param_value" => $status
+            ),
+            array(
+                "param_type" => "s",
+                "param_value" => $fid
+            )
+        );
+        
+        $this->updateDB($query, $params);  
+    }
+
+
+    function lostCreatedUpdateInformation($fid, $item, $foundby, $foundin)
+    {
+        $query = "UPDATE lostandfound SET item = ?, foundby = ?,  foundin = ?  WHERE fid = ?"; 
+
+        $params = array(
+            
+            array(
+                "param_type" => "s",
+                "param_value" => $item
+            ),array(
+                "param_type" => "s",
+                "param_value" => $foundby
+            ),array(
+                "param_type" => "s",
+                "param_value" => $foundin
+            ),
+            array(
+                "param_type" => "i",
+                "param_value" => $fid
             )
         );
         

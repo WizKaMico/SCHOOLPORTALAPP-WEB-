@@ -3,15 +3,34 @@
 class DBController
 {
 
+    // private $host = "localhost";
+
+    // private $user = "root";
+
+    // private $password = "";
+
+    // private $database = "school_portal";
+
+    // private static $conn;
+
+    // function __construct()
+    // {
+    //     $this->conn = mysqli_connect($this->host, $this->user, $this->password, $this->database);
+    // }
+
+    // public static function getConnection()
+    // {
+    //     if (empty($this->conn)) {
+    //         new Database();
+    //     }
+    // }
+
+
     private $host = "localhost";
-
     private $user = "root";
-
     private $password = "";
-
     private $database = "school_portal";
-
-    private static $conn;
+    private $conn;
 
     function __construct()
     {
@@ -20,9 +39,8 @@ class DBController
 
     public static function getConnection()
     {
-        if (empty($this->conn)) {
-            new Database();
-        }
+        $dbController = new self(); // Create an instance of the class
+        return $dbController->conn;
     }
 
     function getDBResult($query, $params = array())

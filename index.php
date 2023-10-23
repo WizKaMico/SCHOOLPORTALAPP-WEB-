@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css">
   <link rel="stylesheet" href="css/main.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
             // Update the placeholder based on the selected role
@@ -38,7 +40,7 @@
 <div class="app">
   <header>
     <div class="logo">
-      <img src="logo/logo.png"  style="max-width: 100%; margin-top:-10px; height: auto;" />
+      <img src="logo/logo.png"  style="max-width: 75%; margin-top:-5px; height: auto;" />
     </div>
   
     <div class="right-links visible-M">
@@ -64,6 +66,7 @@
   </div>
 </div>
 <!-- partial -->
+  
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
   <script src="https://cdn.jsdelivr.net/npm/ag-grid-enterprise@30.0.6/dist/ag-grid-enterprise.min.js"></script>
   <script src="js/home-aggrid.js"></script>

@@ -6,40 +6,16 @@
        </div>
     </div>
 
-      <div class="row" style="margin-top:20px;">
-         <div class="col-md-12">
-          <div class="content-with-shadow">
-                <img src="image/images.jfif" style="width:100%;">
-           </div>
-          </div>
-        </div>
-
-        <div class="row" style="margin-top:20px;">
-         <div class="col-md-6">
-          <div class="content-with-shadow">
-          
-          <iframe src="./pages/slider_auth/announcement/index.php" style="width:100%; height:600px;border:none;" scrolling="no"></iframe>
-
-           </div>
-          </div>
-
-         <div class="col-md-6">
-          <div class="content-with-shadow">
-          <div id="calendar"></div>
-          </div>
-        </div>
-
-        </div>
 
 
         <div class="row" style="margin-top:20px;">
          <div class="col-md-12">
           <div class="content-with-shadow">
-          <button id="createAnnouncementBtn">CREATE NEW ANNOUNCEMENT</button>
+          <button id="createSubjectBtn">CREATE NEW SUBJECT</button>
                <!-- Table -->
                <input type="text" class="form-control" id="search-input" placeholder="Search..."> 
                 <hr />
-               <div id="gridAnnouncement" class="ag-theme-alpine" style="width: 100%; height: 500px;"></div>
+               <div id="gridSubject" class="ag-theme-alpine" style="width: 100%; height: 500px;"></div>
 
            </div>
           </div>
@@ -51,7 +27,7 @@
         <style>/* Slideshow container */
             
           
-            #createAnnouncementBtn {
+            #createSubjectBtn {
             margin-bottom: 20px;
             padding: 10px 20px;
             background-color: #007bff;
@@ -61,7 +37,7 @@
             cursor: pointer;
             }
 
-            #createAnnouncementBtn:hover {
+            #createSubjectBtn:hover {
             background-color: #0056b3;
             }
 

@@ -15,7 +15,7 @@ if(!empty($_GET['uid'])){
     $studentWhereabouts = $portCont->schoolOverallWhereAbout($uid);
    
     // include('api/get_user_specific_data.php');
-}
+} 
 
 if(!empty($_GET['list']))
 {
@@ -152,6 +152,43 @@ if (!empty($_GET["action"])) {
             }
             break;
 
+
+            case "editlost": 
+                if(isset($_POST['update']))
+                {
+                    $fid = $_POST['fid'];
+                    $status = $_POST['status'];
+                   
+    
+                    if (!empty($fid) && !empty($status)) {
+     
+                        $portCont->lostCreatedUpdate($fid, $status);
+            
+                        header('Location: home.php?view=lost');
+
+                    }
+                }
+            break;
+
+           case "updatelostInformation":
+            if(isset($_POST['update']))
+                {
+                    $fid = $_POST['fid'];
+                    $item = $_POST['item'];
+                    $foundby = $_POST['foundby'];
+                    $foundin = $_POST['foundin'];
+    
+                    if (!empty($fid) && !empty($item) && !empty($foundby) && !empty($foundin)) {
+     
+                        $portCont->lostCreatedUpdateInformation($fid, $item, $foundby, $foundin);
+            
+                        header('Location: home.php?view=lost');
+
+                    }
+                }
+
+            
+
             case "addenrollment": 
                 if(isset($_POST['add']))
                 {
@@ -244,6 +281,26 @@ if (!empty($_GET["action"])) {
 
                 }
                 break;
+
+            case "addSubject":
+                if(isset($_POST['add']))
+                {
+                    $grade = $_POST['grade'];
+                    $subject = strtoupper($_POST['subject']);
+                    // Get the first two letters of the subject
+                    $subjectAbbreviation = substr($subject, 0, 2);
+                    // Create the subject code
+                    $subjectCode = $subjectAbbreviation . '00' . $grade;
+                    $time = $_POST['time'];
+
+                    if(!empty($grade) && !empty($subject) && !empty($subjectCode) && !empty($time))
+                    {
+                        $portCont->addSubject($grade, $subject, $subjectCode, $time);
+                        header('Location: home.php?view=subject');
+                    }
+                    
+                }
+
       }
     }
 

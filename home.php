@@ -45,12 +45,14 @@
         <li><i class="fas fa-edit"></i><a href="home.php?view=request" style="text-decoration:none; color:white;">Student Request</a></li>
         <li><i class="fas fa-user-graduate"></i><a href="home.php?view=enrollment" style="text-decoration:none; color:white;">Enrollment</a></li>
         <li><i class="fa fa-desktop"></i><a href="home.php?view=monitoring" style="text-decoration:none; color:white;">Accounts</a></li>
+        <li><i class="fa fa-book"></i><a href="home.php?view=subject" style="text-decoration:none; color:white;">Subject</a></li>
         <li><i class="fa fa-bullhorn"></i><a href="home.php?view=announcement" style="text-decoration:none; color:white;">Announcement</a></li>
         <li><i class="fa fa-question-circle"></i><a href="home.php?view=lost" style="text-decoration:none; color:white;">Lost & Found</a></li>
         <?php } else if($userSession[0]["designation"] == 2) { ?>
         <li class="label">Main</li>
         <li class="active"><i class="fas fa-columns"></i><a href="home.php?view=home" style="text-decoration:none; color:white;">Dashboard</a></li>
         <li><i class="fas fa-user"></i><a href="home.php?view=myclass&list=student" style="text-decoration:none; color:white;">My Student</a></li>
+        <li><i class="fa fa-question-circle"></i><a href="home.php?view=lost" style="text-decoration:none; color:white;">Lost & Found</a></li>
         <?php } else { ?>
         <li class="label">Main</li>
         <li class="active"><i class="fas fa-columns"></i><a href="home.php?view=home" style="text-decoration:none; color:white;">Dashboard</a></li>
@@ -72,6 +74,8 @@
         <?php include('pages/lost.php'); ?>   
         <?php } else if($_GET['view'] == 'monitoring') { ?>
         <?php include('pages/monitoring.php'); ?>     
+        <?php } else if($_GET['view'] == 'subject') { ?>
+         <?php include('pages/subject.php'); ?>     
         <?php } else if($_GET['view'] == 'announcement') { ?>
         <?php include('pages/announcement.php'); ?>  
         <?php } else if($_GET['view'] == 'masterlist') { ?>
@@ -98,6 +102,8 @@
       <?php include('pages/teacher-class.php'); ?>
       <?php } else if($_GET['view'] == 'details') { ?>
       <?php include('pages/teacher-details.php'); ?>
+      <?php } else if($_GET['view'] == 'lost') { ?>
+      <?php include('pages/lost.php'); ?>
       <?php }else{ ?>
 
       <?php } ?>
@@ -134,6 +140,7 @@
   <script src="js/home-aggrid.js"></script>
   <script  src="js/main.js"></script>
   <script src="js/tabs.js"></script>
+
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js'></script>
@@ -144,6 +151,7 @@
   <?php if(!empty($_GET['view'])) { ?>
   <?php if($_GET['view'] == 'details'){ ?>    
   <script src="js/specific_qr.js"></script>
+  
   <script>
   var gridStat = <?php echo json_encode($subjectGrid); ?>;
   </script>
@@ -208,6 +216,33 @@
    <script src="js/announcement-slider.js"></script>
   <script src="js/announce-announce-aggrid.js"></script>
   <script src="js/announce-calendar.js"></script>
+  <?php } else if($_GET['view'] == 'subject'){?>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get references to the button and modal
+      const createSubjectBtn = document.getElementById('createSubjectBtn');
+      const modal = document.getElementById('CreateNewSubject'); // Use the correct modal ID
+
+      // Add a click event listener to the button
+      createSubjectBtn.addEventListener('click', () => {
+        // Display the modal
+        modal.style.display = 'block';
+      });
+
+      // Add a click event listener to close the modal when clicking outside of it
+      window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    });
+
+  </script>
+
+  <script src="js/subject-aggrid.js"></script>
+  <?php include('modal/subject-add.php'); ?>
+
+
   <?php } else if($_GET['view'] == 'lost'){?>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -232,6 +267,8 @@
   </script>   
    <script src="js/announcement-slider.js"></script>
   <?php include('modal/lost-add.php'); ?>
+  <?php include('modal/lost-edit.php'); ?>
+  <?php include('modal/lost-update.php'); ?>
   <script src="js/lost-lost-aggrid.js"></script>
   <?php } else if($_GET['view'] == 'masterlist'){?>
   <script>
@@ -274,6 +311,8 @@
    <?php include('modal/enrollment-add.php'); ?>
    <script src="js/enrollment-enrollmentlist.js"></script> 
    <script src="js/enrollment-sectionlist.js"></script> 
+
+ 
   <?php } else if($_GET['view'] == 'map') { ?>
   <script src="js/map.js"></script> 
   <script src="js/map-detailedmap-aggrid.js"></script>

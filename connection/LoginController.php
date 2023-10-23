@@ -23,12 +23,14 @@ if (! empty($_GET["action"])) {
             
             $uid = $_POST['uid'];
             $password = md5($_POST['password']);
+            $role = $_POST['role'];
+
            
-            if(!empty($uid) && !empty($password))
+            if(!empty($uid) && !empty($password) && !empty($password))
             {
              
              
-             $userCredentials = $portCont->userLogin($password, $uid);
+             $userCredentials = $portCont->userLogin($password, $uid, $role);
              if(!empty($userCredentials))
              {
                 $email = $userCredentials[0]["email"];
@@ -110,7 +112,9 @@ if (! empty($_GET["action"])) {
                     exit;
                 } 
             }else{
-
+                echo '<script type="text/javascript">';
+                echo 'alert("Incorrect Password / UID OR LRN!!");';
+                echo '</script>';
             }
           }
         }

@@ -27,6 +27,7 @@ var gridOptions5 = {
       enableRowGroup: true,
       enablePivot: true,
       enableValue: true,
+      sortable: true
     },
     rowData: [], // Initial empty data
     // Other AG-Grid configuration options

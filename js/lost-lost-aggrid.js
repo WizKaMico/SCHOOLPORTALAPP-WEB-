@@ -4,6 +4,7 @@ var gridOptions6 = {
       {
         headerName: 'LOST ITEM INFORMATION',
         children: [
+          { headerName: 'FID', field: 'fid', cellRenderer: fidLinkRenderer  },
           { headerName: 'IMAGE', field: 'image_path', cellRenderer: imageCellRenderer },
           { headerName: 'ITEM', field: 'item' },
           { headerName: 'FOUND BY', field: 'foundby' },
@@ -11,6 +12,7 @@ var gridOptions6 = {
           { headerName: 'STATUS', field: 'status' },
           { headerName: 'COMMENT', field: 'another' },
           { headerName: 'DATE', field: 'date' },
+          { headerName: 'EDIT', field: 'fid' ,cellRenderer: fidLinkUpdateRenderer },
         ],
       }
       // Add more header groups or columns as needed
@@ -22,10 +24,91 @@ var gridOptions6 = {
       enableRowGroup: true,
       enablePivot: true,
       enableValue: true,
+      sortable:true
     },
     rowData: [], // Initial empty data
     // Other AG-Grid configuration options
   };
+
+
+
+
+  function fidLinkUpdateRenderer(params) {
+    console.log(params.data)
+    var fid = params.value;
+    var link = document.createElement('a');
+    link.href = '#'; // Use "#" as the href to prevent default link behavior
+    link.textContent = 'EDIT';
+    
+    // Add a click event listener to open the modal and pass the data
+    link.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent default link behavior
+      openModal1(params.data);
+    });
+    
+    return link;
+  }
+  
+  function openModal1(data) {
+    // Display the modal
+    var modal = document.getElementById('UpdateLostContent');
+    modal.style.display = 'block';
+    
+    // Populate the modal content using the data object
+    const fidInput = modal.querySelector('#fidInput');
+    fidInput.value = data.fid;
+    const itemInput = modal.querySelector('#itemInput');
+    itemInput.value = data.item;
+    const foundInput = modal.querySelector('#foundInput');
+    foundInput.value = data.foundby;
+    const foundInInput = modal.querySelector('#foundInInput');
+    foundInInput.value = data.foundin;
+    // Add other data fields as needed
+  }
+  
+
+  window.addEventListener('click', function(event) {
+    var modal = document.getElementById('UpdateLostContent');
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+
+  function fidLinkRenderer(params) {
+    var fid = params.value;
+    var link = document.createElement('a');
+    link.href = '#'; // Use "#" as the href to prevent default link behavior
+    link.textContent = fid;
+  
+    // Add a click event listener to open the modal
+    link.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent default link behavior
+      openModal(fid); // Open the modal with the specified UID
+    });
+  
+    return link;
+  }
+
+  
+  // Custom cell renderer for the "Edit" link
+
+  function openModal(fid) {
+    // Display the modal
+    var modal = document.getElementById('lostModal');
+    modal.style.display = 'block';
+  
+    // Populate the modal content using the UID
+    const fidInput = modal.querySelector('#fidInput');
+    fidInput.value = fid;
+  }
+  
+  // Close the modal when clicking outside the modal content
+  window.addEventListener('click', function(event) {
+    var modal = document.getElementById('lostModal');
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
   
 
   function imageCellRenderer(params) {
